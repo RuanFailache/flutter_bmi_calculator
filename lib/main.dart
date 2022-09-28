@@ -16,7 +16,8 @@ class BMICalculator extends StatelessWidget {
           colorScheme: const ColorScheme.dark().copyWith(
             primary: const Color(0xFF0A0E21),
             secondary: Colors.purple,
-            surface: const Color(0xFF1d1E33),
+            surface: const Color(0xFF1D1E33),
+            surfaceVariant: const Color(0xFF111328),
           ),
           appBarTheme: const AppBarTheme(
             elevation: 0,

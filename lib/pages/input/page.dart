@@ -1,3 +1,6 @@
+import 'package:bmi_calculator/pages/input/components/icon_content.dart';
+import 'package:bmi_calculator/pages/input/components/reusable_card.dart';
+import 'package:bmi_calculator/pages/input/controller.dart';
 import 'package:flutter/material.dart';
 
 class InputPage extends StatefulWidget {
@@ -8,92 +11,102 @@ class InputPage extends StatefulWidget {
 }
 
 class _InputPageState extends State<InputPage> {
+  final _inputController = InputController();
+
+  void selectGender(Gender gender) {
+    setState(() {
+      _inputController.updateSelectedGender(gender);
+    });
+  }
+
+  Widget getIconContentByGender(BuildContext context, Gender gender) {
+    final appColorSchema = Theme.of(context).colorScheme;
+
+    final isCardSelected = _inputController.selectedGender == gender;
+
+    return GestureDetector(
+      onTap: () => selectGender(gender),
+      child: ReusableCard(
+        color: isCardSelected
+            ? appColorSchema.surfaceVariant
+            : appColorSchema.surface,
+        cardChild: IconContent(gender: gender),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    final appColorScheme = Theme.of(context).colorScheme;
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('BMI CALCULATOR'),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Expanded(
-              child: Row(
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(10),
+              child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Expanded(
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: appColorScheme.surface,
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: const Text('Body Text'),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Expanded(
+                          child: getIconContentByGender(
+                            context,
+                            Gender.male,
+                          ),
+                        ),
+                        Expanded(
+                          child: getIconContentByGender(
+                            context,
+                            Gender.female,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                  const SizedBox(
-                    width: 20,
+                  Expanded(
+                    child: ReusableCard(
+                      cardChild: Container(),
+                    ),
                   ),
                   Expanded(
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: appColorScheme.surface,
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: const Text('Body Text'),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Expanded(
+                          child: ReusableCard(
+                            cardChild: Container(),
+                          ),
+                        ),
+                        Expanded(
+                          child: ReusableCard(
+                            cardChild: Container(),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ],
               ),
             ),
-            const SizedBox(
-              height: 20,
-            ),
-            Expanded(
-              child: Container(
-                decoration: BoxDecoration(
-                  color: appColorScheme.surface,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: const Text('Body Text'),
+          ),
+          TextButton(
+            onPressed: () {},
+            style: TextButton.styleFrom(
+              padding: EdgeInsets.zero,
+              shape: const ContinuousRectangleBorder(
+                borderRadius: BorderRadius.zero,
               ),
+              backgroundColor: const Color(0xFFEB1555),
             ),
-            const SizedBox(
-              height: 20,
-            ),
-            Expanded(
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Expanded(
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: appColorScheme.surface,
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: const Text('Body Text'),
-                    ),
-                  ),
-                  const SizedBox(
-                    width: 20,
-                  ),
-                  Expanded(
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: appColorScheme.surface,
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: const Text('Body Text'),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
+            child: const Text('CALCULATE'),
+          ),
+        ],
       ),
     );
   }
