@@ -30,6 +30,14 @@ class BMICalculator extends StatelessWidget {
             color: Color(0xFF8D8E98),
           ),
         ),
+        sliderTheme: SliderTheme.of(context).copyWith(
+          thumbShape: const RoundSliderThumbShape(
+            enabledThumbRadius: 12,
+          ),
+          overlayShape: const RoundSliderOverlayShape(
+            overlayRadius: 24,
+          ),
+        ),
       ),
       home: const InputPage(),
     );

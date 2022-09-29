@@ -1,8 +1,10 @@
 import 'package:bmi_calculator/common/constants/theme.dart';
 import 'package:bmi_calculator/common/models/gender.dart';
+import 'package:bmi_calculator/pages/input/components/button_controlled_content.dart';
 import 'package:bmi_calculator/pages/input/components/icon_content.dart';
 import 'package:bmi_calculator/pages/input/components/reusable_card.dart';
 import 'package:bmi_calculator/pages/input/controller.dart';
+import 'package:bmi_calculator/pages/input/events.dart';
 import 'package:flutter/material.dart';
 
 class InputPage extends StatefulWidget {
@@ -18,6 +20,22 @@ class _InputPageState extends State<InputPage> {
   void selectGender(Gender gender) {
     setState(() {
       _inputController.updateSelectedGender(gender);
+    });
+  }
+
+  void changeSliderValue(double value) {
+    final newHeight = value.round();
+    setState(() {
+      _inputController.updateHeight(newHeight);
+    });
+  }
+
+  void changeControllerValueOnClick(
+    ButtonEvent event,
+    Function(ButtonEvent) callback,
+  ) {
+    setState(() {
+      callback(event);
     });
   }
 
@@ -94,28 +112,13 @@ class _InputPageState extends State<InputPage> {
                               ),
                             ],
                           ),
-                          SliderTheme(
-                            data: SliderTheme.of(context).copyWith(
-                              thumbShape: const RoundSliderThumbShape(
-                                enabledThumbRadius: 12,
-                              ),
-                              overlayShape: const RoundSliderOverlayShape(
-                                overlayRadius: 24,
-                              ),
-                            ),
-                            child: Slider(
-                              min: 50,
-                              max: 250,
-                              value: _inputController.height.toDouble(),
-                              activeColor: kBottomContainerColor,
-                              inactiveColor: kLightTextColor,
-                              onChanged: (double value) {
-                                setState(() {
-                                  final newHeight = value.round();
-                                  _inputController.updateHeight(newHeight);
-                                });
-                              },
-                            ),
+                          Slider(
+                            min: kMinHeight,
+                            max: kMaxHeight,
+                            onChanged: changeSliderValue,
+                            inactiveColor: kLightTextColor,
+                            activeColor: kBottomContainerColor,
+                            value: _inputController.height.toDouble(),
                           ),
                         ],
                       ),
@@ -127,12 +130,34 @@ class _InputPageState extends State<InputPage> {
                       children: [
                         Expanded(
                           child: ReusableCard(
-                            cardChild: Container(),
+                            cardChild: ButtonControlledContent(
+                              label: 'WEIGHT',
+                              value: _inputController.weight.toString(),
+                              onAdd: () => changeControllerValueOnClick(
+                                ButtonEvent.add,
+                                _inputController.updateWeight,
+                              ),
+                              onRemove: () => changeControllerValueOnClick(
+                                ButtonEvent.remove,
+                                _inputController.updateWeight,
+                              ),
+                            ),
                           ),
                         ),
                         Expanded(
                           child: ReusableCard(
-                            cardChild: Container(),
+                            cardChild: ButtonControlledContent(
+                              label: 'AGE',
+                              value: _inputController.age.toString(),
+                              onAdd: () => changeControllerValueOnClick(
+                                ButtonEvent.add,
+                                _inputController.updateAge,
+                              ),
+                              onRemove: () => changeControllerValueOnClick(
+                                ButtonEvent.remove,
+                                _inputController.updateAge,
+                              ),
+                            ),
                           ),
                         ),
                       ],
