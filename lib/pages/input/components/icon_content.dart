@@ -1,21 +1,7 @@
+import 'package:bmi_calculator/common/constants/theme.dart';
+import 'package:bmi_calculator/common/models/gender.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
-enum Gender {
-  male,
-  female,
-}
-
-extension GenderExtensions on Gender {
-  get text {
-    switch (this) {
-      case Gender.male:
-        return 'MALE';
-      case Gender.female:
-        return 'FEMALE';
-    }
-  }
-}
 
 class IconContent extends StatelessWidget {
   const IconContent({
@@ -48,10 +34,7 @@ class IconContent extends StatelessWidget {
         ),
         Text(
           gender.text,
-          style: const TextStyle(
-            fontSize: 16,
-            color: Color(0xFF8D8E98),
-          ),
+          style: kLabelTextStyle,
         )
       ],
     );

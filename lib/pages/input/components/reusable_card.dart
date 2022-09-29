@@ -1,3 +1,4 @@
+import 'package:bmi_calculator/common/constants/theme.dart';
 import 'package:flutter/material.dart';
 
 class ReusableCard extends StatelessWidget {
@@ -12,12 +13,10 @@ class ReusableCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final appColorScheme = Theme.of(context).colorScheme;
-
     return Container(
       margin: const EdgeInsets.all(10),
       decoration: BoxDecoration(
-        color: color ?? appColorScheme.surface,
+        color: color ?? kInactiveCardColor,
         borderRadius: BorderRadius.circular(10),
       ),
       child: cardChild,
