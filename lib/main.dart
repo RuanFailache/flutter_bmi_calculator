@@ -8,10 +8,8 @@ void main() {
 class BMICalculator extends StatelessWidget {
   const BMICalculator({Key? key}) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData.dark().copyWith(
+  static get _theme =>
+      ThemeData.dark().copyWith(
         scaffoldBackgroundColor: const Color(0xFF0A0E21),
         colorScheme: const ColorScheme.dark().copyWith(
           primary: const Color(0xFF0A0E21),
@@ -30,15 +28,12 @@ class BMICalculator extends StatelessWidget {
             color: Color(0xFF8D8E98),
           ),
         ),
-        sliderTheme: SliderTheme.of(context).copyWith(
-          thumbShape: const RoundSliderThumbShape(
-            enabledThumbRadius: 12,
-          ),
-          overlayShape: const RoundSliderOverlayShape(
-            overlayRadius: 24,
-          ),
-        ),
-      ),
+      );
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      theme: _theme,
       home: const InputPage(),
     );
   }

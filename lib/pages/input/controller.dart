@@ -1,4 +1,4 @@
-import 'package:bmi_calculator/common/models/gender.dart';
+import 'package:bmi_calculator/models/gender.dart';
 import 'package:bmi_calculator/pages/input/events.dart';
 
 const int kInitialHeight = 180;

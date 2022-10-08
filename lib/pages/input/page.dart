@@ -1,10 +1,12 @@
-import 'package:bmi_calculator/common/constants/theme.dart';
-import 'package:bmi_calculator/common/models/gender.dart';
-import 'package:bmi_calculator/pages/input/components/button_controlled_content.dart';
-import 'package:bmi_calculator/pages/input/components/icon_content.dart';
-import 'package:bmi_calculator/pages/input/components/reusable_card.dart';
+import 'package:bmi_calculator/components/bottom_button.dart';
+import 'package:bmi_calculator/components/button_controlled_content.dart';
+import 'package:bmi_calculator/components/icon_content.dart';
+import 'package:bmi_calculator/components/reusable_card.dart';
+import 'package:bmi_calculator/constants.dart';
+import 'package:bmi_calculator/models/gender.dart';
 import 'package:bmi_calculator/pages/input/controller.dart';
 import 'package:bmi_calculator/pages/input/events.dart';
+import 'package:bmi_calculator/pages/result/page.dart';
 import 'package:flutter/material.dart';
 
 class InputPage extends StatefulWidget {
@@ -15,7 +17,7 @@ class InputPage extends StatefulWidget {
 }
 
 class _InputPageState extends State<InputPage> {
-  final _inputController = InputController();
+  static final _inputController = InputController();
 
   void selectGender(Gender gender) {
     setState(() {
@@ -112,13 +114,23 @@ class _InputPageState extends State<InputPage> {
                               ),
                             ],
                           ),
-                          Slider(
-                            min: kMinHeight,
-                            max: kMaxHeight,
-                            onChanged: changeSliderValue,
-                            inactiveColor: kLightTextColor,
-                            activeColor: kBottomContainerColor,
-                            value: _inputController.height.toDouble(),
+                          SliderTheme(
+                            data: SliderTheme.of(context).copyWith(
+                              thumbShape: const RoundSliderThumbShape(
+                                enabledThumbRadius: 8,
+                              ),
+                              overlayShape: const RoundSliderOverlayShape(
+                                overlayRadius: 16,
+                              ),
+                            ),
+                            child: Slider(
+                              min: kMinHeight,
+                              max: kMaxHeight,
+                              onChanged: changeSliderValue,
+                              inactiveColor: kLightTextColor,
+                              activeColor: kBottomContainerColor,
+                              value: _inputController.height.toDouble(),
+                            ),
                           ),
                         ],
                       ),
@@ -167,21 +179,19 @@ class _InputPageState extends State<InputPage> {
               ),
             ),
           ),
-          SizedBox(
-            height: kBottomContainerHeight,
-            child: TextButton(
-              onPressed: () {},
-              style: TextButton.styleFrom(
-                shape: const ContinuousRectangleBorder(
-                  borderRadius: BorderRadius.zero,
+          BottomButton(
+            label: 'CALCULATE',
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ResultPage(
+                    height: _inputController.height.toDouble(),
+                    weight: _inputController.weight.toDouble(),
+                  ),
                 ),
-                backgroundColor: const Color(0xFFEB1555),
-              ),
-              child: const Text(
-                'CALCULATE',
-                style: kLabelTextStyle,
-              ),
-            ),
+              );
+            },
           ),
         ],
       ),

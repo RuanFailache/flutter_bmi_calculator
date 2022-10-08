@@ -1,5 +1,5 @@
-import 'package:bmi_calculator/common/components/circle_icon_button.dart';
-import 'package:bmi_calculator/common/constants/theme.dart';
+import 'package:bmi_calculator/components/circle_icon_button.dart';
+import 'package:bmi_calculator/constants.dart';
 import 'package:flutter/material.dart';
 
 class ButtonControlledContent extends StatelessWidget {
