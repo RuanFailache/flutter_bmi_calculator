@@ -13,8 +13,11 @@ class BottomButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return Container(
       height: kBottomContainerHeight,
+      margin: const EdgeInsets.only(
+        top: 10,
+      ),
       child: TextButton(
         onPressed: onTap,
         style: TextButton.styleFrom(

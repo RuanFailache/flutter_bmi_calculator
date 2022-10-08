@@ -1,4 +1,0 @@
-enum ButtonEvent {
-  add,
-  remove,
-}

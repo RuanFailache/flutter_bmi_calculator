@@ -1,11 +1,15 @@
 import 'package:bmi_calculator/models/gender.dart';
-import 'package:bmi_calculator/pages/input/events.dart';
 
 const int kInitialHeight = 180;
 const double kMinHeight = 50;
 const double kMaxHeight = 250;
 const int kInitialWeight = 70;
 const int kInitialAge = 20;
+
+enum ButtonEvent {
+  add,
+  remove,
+}
 
 class InputController {
   Gender? _selectedGender;
